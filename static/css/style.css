@@ -42,6 +42,52 @@ body{
     background-color: rgba(95, 158, 160, 0.439);
 }
 
+.table_title {
+    display: flex;
+    justify-content: center;
+}
+
+.titleBtn{
+    font-size: 40px;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    color: white;
+    background-color: rgb(95, 158, 160);
+    cursor: pointer;
+    border: 0;
+}
+.table_title{
+    background-color: rgb(95, 158, 160);
+}
+
+ul{
+    background-color: rgb(95, 158, 160);
+    width: 400px;
+    position: absolute;
+    top: 100px;
+    padding: 0 0 20px 0;
+    display: none;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+
+
+ul li{
+    list-style: none;
+    text-align: center;
+}
+a{
+    font-size: 40px;
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    color: rgb(194, 194, 194);
+}
+
 .col{
     font-size: 40px;
     width: 33%; 
@@ -52,6 +98,7 @@ body{
 
 .buttons{
     background-color: rgb(95, 158, 160);
+    border-bottom: 2px solid black;
 }
 
 .userMenuBtn{
@@ -60,7 +107,7 @@ body{
     border: 0;
     font-size: 18px;
     background-color: rgb(95, 158, 160);
-    border-right: 3px black solid;
+    border-right: 2px black solid;
 }
 .userMenuBtn:hover{
     font-weight: 600;
@@ -79,7 +126,9 @@ body{
     border-top-left-radius: 0;
 }
 
-
+option{
+    width: 600px;
+}
 
 .x-icon{
     width: 40px;
@@ -119,18 +168,17 @@ label[for="propsCheck"] {
 
 
 
-#addUserForm {
+#addUserForm, #updateForm {
     display: flex;
     flex-direction: column;
 }
 
-#addUserForm label{
+.addInput{
     font-size: 20px;
-}
-
-#addUserForm input{
     text-align: center;
 }
+
+
 
 .addBtn{
     margin-top: 20px;

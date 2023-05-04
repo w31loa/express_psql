@@ -1,7 +1,9 @@
 import express from 'express'
 import path from 'path'
-import userRouter from './routes/user.routes.js'
 import teapotRouter from './routes/teapot.router.js'
+import workshopRouter from './routes/workshop.router.js'
+import detailRouter from './routes/detail.router.js'
+
 
 const PORT = process.env.PORT || 8080
 
@@ -9,7 +11,8 @@ const app = express()
 
 app.use(express.json())
 app.use('/api', teapotRouter)
-app.use('/api', userRouter)
+app.use('/api', workshopRouter)
+app.use('/api', detailRouter)
 app.use(express.static(path.resolve('static')))
 
 

@@ -25,5 +25,8 @@ router.get('/teapot/select/:by/:value', (req,res)=>{
 router.get('/teapot/search/:by/:value', (req,res)=>{
     teapotController.searchTeapot(req,res)
 })
+router.put('/teapot/update', (req,res)=>{
+    teapotController.updateTeapot(req,res)
+})
 
 export default router   

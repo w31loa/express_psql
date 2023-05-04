@@ -1,7 +1,8 @@
 let users;
 const addBtn = document.getElementById('addMenuBtn')
-const closeBtn = document.querySelector('.x-icon')
+const closeBtns = document.querySelectorAll('.x-icon')
 const addUserForm = document.getElementById('addUserForm')
+const updateForm = document.getElementById('updateForm')
 const deliteBtn = document.getElementById('delete')
 const ContentEl = document.querySelector('.teapots')
 const sortMoreBtn = document.getElementById('sort-more')
@@ -9,10 +10,27 @@ const sortBtns = document.querySelectorAll('.sortBtn')
 const resetBtn = document.getElementById('reset')
 const searchBtns = document.querySelectorAll('.searchBtn')
 const filtBtns = document.querySelectorAll('.filtBtn')
+const editBtn = document.getElementById('edit')
+const titleBtn = document.querySelector('.titleBtn')
+
 
 
 let selectedRowsId = []
 
+
+titleBtn.addEventListener('click', ()=>{
+    if(  document.querySelector('.tables-selector').style.display = 'none'){
+       
+        document.querySelector('.tables-selector').style.display = 'block'
+       
+    }
+  
+})
+document.addEventListener('click', (event)=>{
+    if(event.target != document.querySelector('.titleBtn')){
+        document.querySelector('.tables-selector').style.display = 'none'
+    }
+})
 
 
 function sendReq(method, url , body = null){
@@ -20,7 +38,19 @@ function sendReq(method, url , body = null){
         'Content-Type': 'application/json'
     }
 
-    if(method!= 'POST'){
+    if(method == 'PUT'){
+        return fetch(url,{
+            method: method,
+            body: JSON.stringify(body),
+            headers: headers
+        })
+        .then((res)=>{
+            return res.json()
+        })
+        .then((data)=>{
+            return data
+        })
+    }else  if(method!= 'POST'){
         return fetch(url)
         .then((res)=>{
                 return res.json()
@@ -45,7 +75,7 @@ function sendReq(method, url , body = null){
 
 const selectRows= ()=>{
     ContentEl.addEventListener('click', (event)=>{
- 
+    
         if(event.target.parentNode.classList.contains('selected')){
             document.querySelectorAll('.selected').forEach(item=>{
                 selectedRowsId.pop((item.childNodes[0].id) )
@@ -69,7 +99,7 @@ const selectRows= ()=>{
             }
           
         })
-    
+       
     })
 } 
 
@@ -91,7 +121,7 @@ function renderUsers(){
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-power">${data[i].power}</span>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-material">${data[i].material}</span>`
             }
-
+            selectedRowsId= []
     })
 }
  
@@ -107,9 +137,63 @@ addBtn.addEventListener('click', ()=>{
     document.querySelector('.addModal').style.display = 'block'
 })
 
-closeBtn.addEventListener('click', ()=>{
-    document.querySelector('.addModal').style.display = 'none'
+closeBtns.forEach((item)=>{
+    item.addEventListener('click', ()=>{
+        document.querySelector('.addModal').style.display = 'none'
+        document.querySelector('.updateModal').style.display = 'none'
+    })
 })
+
+
+editBtn.addEventListener('click', ()=>{
+    if (selectedRowsId.length == 0){
+     alert('Строка для изменения не выбрана')
+     return
+    }
+    if (selectedRowsId.length > 1){
+     alert('Можно изменить только одну строку')
+     return
+    }
+    document.querySelector('.updateModal').style.display = 'block'
+    document.getElementById('UPDATE-title').value=  document.querySelector('.selected').childNodes[1].textContent
+    document.getElementById('UPDATE-volume').value = document.querySelector('.selected').childNodes[2].textContent
+    document.getElementById('UPDATE-power').value =  document.querySelector('.selected').childNodes[3].textContent
+    document.getElementById('UPDATE-material').value =  document.querySelector('.selected').childNodes[4].textContent
+
+})
+
+updateForm.addEventListener('submit', (event)=>{
+    event.preventDefault()
+
+    const id = document.querySelector('.selected').childNodes[0].textContent
+    const title = document.getElementById('UPDATE-title').value
+    const volume = document.getElementById('UPDATE-volume').value
+    const power = document.getElementById('UPDATE-power').value
+    const material = document.getElementById('UPDATE-material').value
+    if(title== '' || volume == '' || power== '' || material == ''){
+        alert("Вы вввели не все данные для добавление")
+        return false
+    }else{
+        document.getElementById('UPDATE-title').value = ''
+        document.getElementById('UPDATE-volume').value = ''
+        document.getElementById('UPDATE-power').value = ''
+        document.getElementById('UPDATE-material').value = ''
+    }
+    const body={
+        'id': id,
+        'title': title,
+        'volume': volume,
+        'power': power,
+        'material': material
+    }
+    console.log(body)
+    sendReq('PUT', 'api/teapot/update' , body)
+    document.querySelector('.teapots').innerHTML = ''
+    renderUsers()
+   
+})
+
+
 
 addUserForm.addEventListener('submit', (event)=>{
     event.preventDefault()
@@ -136,19 +220,21 @@ addUserForm.addEventListener('submit', (event)=>{
     sendReq('POST', 'api/teapot' , body).then(()=>{
         document.querySelector('.teapots').innerHTML = ''
         renderUsers()
+       
     })
 
-
-    
 })
 
 
 deliteBtn.addEventListener('click',()=>{
     selectedRowsId.forEach((item)=>{
-        fetch(`api/teapot/${item}`, {method: 'DELETE'})
+        fetch(`api/teapot/${item}`, {method: 'DELETE'}).then(()=>{
+          
+        })
     })
     document.querySelector('.teapots').innerHTML = ''
     renderUsers()
+
 })
 
 

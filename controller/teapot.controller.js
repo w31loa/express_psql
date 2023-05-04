@@ -12,16 +12,6 @@ export default class TeapotController{
         res.json(teapots.rows)
 
     }
-    // async getOneUser(req,res){
-    //     const id = req.params.id
-    //     const user = await db.query(`select * from person where id = $1`, [id])
-    //     res.json(user.rows[0])
-    // }
-    // async updateUser(req,res){
-    //     const {id, name , surname} = req.body
-    //     const user = await db.query(`update person set firstname = $1, surname = $2 where id = $3 RETURNING *`, [name, surname, id])
-    //     res.json(user.rows[0])
-    // }
     async deleteTeapot(req,res){
         const id = req.params.id
         const user = await db.query(`delete from teapot where id = $1`, [id])
@@ -45,6 +35,11 @@ export default class TeapotController{
         const users = await db.query(`select * from teapot where ${by}::TEXT like '%${value}%'`)
         res.json(users.rows)
      }
+    async updateTeapot(req,res){
+        const {id, title , volume, power, material} = req.body
+        console.log(req.body)
+        const user = await db.query(`update teapot set title = '${title}', volume = ${volume}, power = ${power}, material = '${material}' where id = ${id}`)
+     }
 }
-
+ 
 
