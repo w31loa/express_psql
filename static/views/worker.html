@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Работник</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="buttons">
+        <input class="userMenuBtn" id="addMenuBtn" type="button" value="Добавить запись">
+        <div class="addModal">
+            <img class="x-icon" src="../img/x-icon.svg" alt="">
+            <div class="addForm" >
+                <form id="addUserForm"  >
+                    
+                    <label for="POST-title">Фамилия:</label>
+                    <input class="addInput" id="POST-surname" type="text"> <br>
+                    <label for="POST-title">Имя:</label>
+                    <input class="addInput" id="POST-firstname" type="text"> <br>
+                    <label for="POST-title">Отчество:</label>
+                    <input class="addInput" id="POST-patronymic" type="text"> <br>
+                    <label for="POST-workshop">Должность:</label>
+                    <input list="position-datalist" class="addInput" id="POST-position" type="number"> <br>
+                    <datalist id="position-datalist"> </datalist>
+                    <label for="POST-workshop">Цех:</label>
+                    <input list="workshop-datalist" class="addInput" id="POST-workshop" type="number"> <br>
+                    <datalist id="workshop-datalist"> </datalist>
+                    <input class="addBtn" type="submit" value="Добавить">
+                </form>
+            </div>
+        </div>
+        <div class="updateModal addModal">
+            <img class="x-icon" src="../img/x-icon.svg" alt="">
+            <div class="addForm">
+                <form id="updateForm"  >
+                    <label for="POST-title">Фамилия:</label>
+                    <input class="addInput" id="UPDATE-surname" type="text"> <br>
+                    <label for="POST-title">Имя:</label>
+                    <input class="addInput" id="UPDATE-firstname" type="text"> <br>
+                    <label for="POST-title">Отчество:</label>
+                    <input class="addInput" id="UPDATE-patronymic" type="text"> <br>
+                    <label for="POST-workshop">Должность:</label>
+                    <input list="position-datalist" class="addInput" id="UPDATE-position" type="number"> <br>
+                    <datalist id="position-datalist"> </datalist>
+                    <label for="POST-workshop">Цех:</label>
+                    <input list="workshop-datalist" class="addInput" id="UPDATE-workshop" type="number"> <br>
+                    <datalist id="workshop-datalist"> </datalist>
+                    <input class="addBtn" type="submit" value="Изменить">
+                </form>
+            </div>
+        </div>
+
+
+        </form>
+        <input class="userMenuBtn" id="edit" type="button" value="Изменить запись">
+        <input class="userMenuBtn" id="delete" type="button" value="Удалить запись">
+        <input class="userMenuBtn" id="reset" type="button" value="Обновить">
+        <label for="propsInput">Праметры поиска/фильтрации</label>
+        <input class="searchInput" type="text" name="" id="propsInput">
+        <label for="propsCheck">Точный поиск/фильтрация</label>
+        <input type="checkbox" name="" id="propsCheck">
+    </div>
+    <div class="table_title">
+        <button class="titleBtn">Работник</button> 
+        <ul class="tables-selector">
+            <li><a href="../index.html">Чайник</a></li>
+            <li><a href="./detail.html">Деталь</a></li>
+            <li><a href="./position.html">Должность</a></li>
+            <li><a href="./workshop.html">Цех</a></li>
+       
+        </ul>
+    </div>
+    <div class="content">
+        <p class= "row header">
+           
+            <span class="col" id="id-col">Id<br><span class="colBtns searchBtn" ><img id="searchBtn" src="../img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="../img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="../img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="../img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Фамилия<br><span class="colBtns searchBtn" ><img id="searchBtn" src="../img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="../img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="../img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="../img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Имя<br><span class="colBtns searchBtn" ><img id="searchBtn" src="../img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="../img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="../img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="../img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Отчество<br><span class="colBtns searchBtn" ><img id="searchBtn" src="../img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="../img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="../img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="../img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Должность<br><span class="colBtns searchBtn" ><img id="searchBtn" src="../img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="../img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="../img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="../img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Цех<br><span class="colBtns searchBtn" ><img id="searchBtn" src="../img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="../img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="../img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="../img/less-more.png"  alt=""></span></span>
+
+        </p>
+        <div class="teapots">
+          
+        </div>
+    </div>
+
+    <script src="../js/worker.js"></script>
+</body>
+</html>

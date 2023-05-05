@@ -109,12 +109,14 @@ selectRows()
 
 
 function renderUsers(){
-    sendReq('GET', 'http://localhost:8080/api/detail').then((data)=>{
+    sendReq('GET', 'http://localhost:8080/api/worker').then((data)=>{
         for(i in data){
             document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-surname">${data[i].surname}<span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-firstname">${data[i].firstname}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-patronymic">${data[i].patronymic}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}</span>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
         }
     })
@@ -130,12 +132,12 @@ resetBtn.addEventListener('click',()=>{
 
 // document.getElementById('teapots-datalist').innerHTML= '<option value="витёк"></option>'
 
-function teapotPrompt(){
-    sendReq('GET', 'http://localhost:8080/api/teapot')
+function positionPrompt(){
+    sendReq('GET', 'http://localhost:8080/api/position')
     .then((data)=>{
 
         for(i in data){
-            document.getElementById('teapots-datalist').innerHTML+= `<option value="${data[i].id}" label="${data[i].title}"></option>`
+            document.getElementById('position-datalist').innerHTML+= `<option value="${data[i].id}" label="${data[i].position_name}"></option>`
             
             }
     })
@@ -150,7 +152,7 @@ function workshopPrompt(){
             }
     })
 }
-teapotPrompt()
+positionPrompt()
 workshopPrompt()
 
 addBtn.addEventListener('click', ()=>{
@@ -175,7 +177,9 @@ editBtn.addEventListener('click', ()=>{
      return
     }
     document.querySelector('.updateModal').style.display = 'block'
-    document.getElementById('UPDATE-title').value=  document.querySelector('.selected').childNodes[1].textContent
+    document.getElementById('UPDATE-surname').value=  document.querySelector('.selected').childNodes[1].textContent
+    document.getElementById('UPDATE-firstname').value=  document.querySelector('.selected').childNodes[2].textContent
+    document.getElementById('UPDATE-patronymic').value=  document.querySelector('.selected').childNodes[3].textContent
 
 })
 
@@ -183,48 +187,60 @@ updateForm.addEventListener('submit', (event)=>{
     event.preventDefault()
 
     const id = document.querySelector('.selected').childNodes[0].textContent
-    const title = document.getElementById('UPDATE-title').value
-    const teapot = document.getElementById('UPDATE-teapot').value
-    const workshop = document.getElementById('UPDATE-workshop').value
-    if(title== '' || teapot == '' || workshop == ''){
+    const surname = document.getElementById('UPDATE-surname').value
+    const firstname = document.getElementById('UPDATE-firstname').value
+    const patronymic = document.getElementById('UPDATE-patronymic').value
+    const position_id = document.getElementById('UPDATE-position').value
+    const workshop_id = document.getElementById('UPDATE-workshop').value
+    if(surname== '' || firstname == '' || patronymic == ''|| position_id == '' || workshop_id == ''){
         alert("Вы вввели не все данные для добавление")
         return false
     }else{
-        document.getElementById('UPDATE-title').value = ''
-        document.getElementById('UPDATE-teapot').value = ''
-        document.getElementById('UPDATE-workshop').value = ''
+        const surname = document.getElementById('UPDATE-surname').value
+        const firstname = document.getElementById('UPDATE-firstname').value
+        const patronymic = document.getElementById('UPDATE-patronymic').value
+        const position_id = document.getElementById('UPDATE-position').value
+        const workshop_id = document.getElementById('UPDATE-workshop').value
     }
     const body={
         'id': id,
-        'title': title,
-        'teapot': teapot,
-        'workshop': workshop
+        'surname': surname,
+        'firstname': firstname,
+        'patronymic': patronymic,
+        'position_id': position_id,
+        'workshop_id': workshop_id
     }
-    sendReq('PUT', 'http://localhost:8080/api/detail/update' , body)
+    sendReq('PUT', 'http://localhost:8080/api/worker/update' , body)
     document.querySelector('.teapots').innerHTML = ''
     renderUsers()
 })
 
 addUserForm.addEventListener('submit', (event)=>{
     event.preventDefault()
-   
-    const title = document.getElementById('POST-title').value
-    const teapot = document.getElementById('POST-teapot').value
-    const workshop = document.getElementById('POST-workshop').value
-    if(title== '' || teapot == '' || workshop == ''){
+   console.log('lal')
+    const surname = document.getElementById('POST-surname').value
+    const firstname = document.getElementById('POST-firstname').value
+    const patronymic = document.getElementById('POST-patronymic').value
+    const position_id = document.getElementById('POST-position').value
+    const workshop_id = document.getElementById('POST-workshop').value
+    if(surname== '' || firstname == '' || patronymic == ''|| position_id == '' || workshop_id == ''){
         alert("Вы вввели не все данные для добавление")
         return false
     }else{
-        document.getElementById('POST-title').value = ''
-        document.getElementById('POST-teapot').value = ''
+        document.getElementById('POST-surname').value = ''
+        document.getElementById('POST-firstname').value = ''
+        document.getElementById('POST-patronymic').value = ''
+        document.getElementById('POST-position').value = ''
         document.getElementById('POST-workshop').value = ''
     }
     const body={
-        'title': title,
-        'teapot': teapot,
-        'workshop': workshop
+        'surname': surname,
+        'firstname': firstname,
+        'patronymic': patronymic,
+        'position_id': position_id,
+        'workshop_id': workshop_id
     }
-    sendReq('POST', 'http://localhost:8080/api/detail' , body).then(()=>{
+    sendReq('POST', 'http://localhost:8080/api/worker' , body).then(()=>{
         document.querySelector('.teapots').innerHTML = ''
         renderUsers()
     })
@@ -236,7 +252,7 @@ addUserForm.addEventListener('submit', (event)=>{
 
 deliteBtn.addEventListener('click',()=>{
     selectedRowsId.forEach((item)=>{
-        fetch(`http://localhost:8080/api/detail/${item}`, {method: 'DELETE'}).then(()=>{
+        fetch(`http://localhost:8080/api/worker/${item}`, {method: 'DELETE'}).then(()=>{
           
         })
     })
@@ -265,16 +281,24 @@ sortBtns.forEach((item)=>{
                  by='id'
             }
                 break;
-            case 'Название':{
-                by='title'
+            case 'Фамилия':{
+                by='surname'
              
             }
                 break;
-            case 'Чайник':{
-                by='teapot'
+            case 'Имя':{
+                by='firstname'
                 
             }
                 break;
+            case 'Отчество':{
+                by='patronymic'
+                
+            }
+            case 'Должность':{
+                by='position_name'
+                
+            }
             case 'Цех':{
                 by='workshop'
                 
@@ -285,15 +309,17 @@ sortBtns.forEach((item)=>{
             default:
                 break;
         }
-        sendReq('GET', `http://localhost:8080/api/detail/sort/${by}/${order}`).then((data)=>{
+        sendReq('GET', `http://localhost:8080/api/worker/sort/${by}/${order}`).then((data)=>{
 
      
             for(i in data){
               
                 document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
                 document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
+                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-surname">${data[i].surname}<span>`
+                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-firstname">${data[i].firstname}</span>`
+                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-patronymic">${data[i].patronymic}</span>`
+                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}</span>`
                 document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
                 }
     
@@ -317,21 +343,28 @@ searchBtns.forEach((item)=>{
                 by='col-id'
            }
                break;
-           case 'Название':{
-               by='col-title'
+           case 'Фамилия':{
+                by='col-surname'
             
            }
                break;
-           case 'Чайник':{
-               by='col-teapot'
-               
+           case 'Имя':{
+                by='col-firstname'               
            }
                break;
+           case 'Отчество':{
+                by='col-patronymic'
+               
+           }
+           case 'Должность':{
+                by='col-position_name'
+               
+           }
            case 'Цех':{
-               by='col-workshop'
+                by='col-workshop'
                
            }
-               break;
+               break;    
         
             default:
                 break;
@@ -366,49 +399,64 @@ filtBtns.forEach((item)=>{
         let by 
         switch (item.parentNode.textContent) {
             case 'Id':{
-                by='detail.id'
+                by='worker.id'
            }
                break;
-           case 'Название':{
-               by='detail.title'
+           case 'Фамилия':{
+               by='worker.surname'
             
            }
                break;
-           case 'Чайник':{
-               by='teapot.title'
+           case 'Имя':{
+               by='worker.firstname'
                
            }
                break;
+           case 'Отчество':{
+               by='worker.patronymic'
+               
+           }
+                 break;
+           case 'Должность':{
+               by='position.position_name'
+               
+           }
+                 break;
            case 'Цех':{
                by='workshop.title'
                
            }
-               break;
+               break;  
         
             default:
                 break;
         }
         if(searchCheck.checked){
             document.querySelector('.teapots').innerHTML = ''
-            sendReq('GET', `http://localhost:8080/api/detail/select/${by}/${searchProps.value}`).then((data)=>{
+            sendReq('GET', `http://localhost:8080/api/worker/select/${by}/${searchProps.value}`).then((data)=>{
+                console.log(data)
                 for(i in data){
                     document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-surname">${data[i].surname}<span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-firstname">${data[i].firstname}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-patronymic">${data[i].patronymic}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}</span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
                     }
             })
         }else{
             document.querySelector('.teapots').innerHTML = ''
-            sendReq('GET', `http://localhost:8080/api/detail/search/${by}/${searchProps.value}`).then((data)=>{
+            sendReq('GET', `http://localhost:8080/api/worker/search/${by}/${searchProps.value}`).then((data)=>{
                 console.log(data)
                 for(i in data){
                     document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-surname">${data[i].surname}<span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-firstname">${data[i].firstname}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-patronymic">${data[i].patronymic}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
                     }
             })
         }

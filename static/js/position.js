@@ -109,13 +109,13 @@ selectRows()
 
 
 function renderUsers(){
-    sendReq('GET', 'http://localhost:8080/api/detail').then((data)=>{
+    sendReq('GET', 'http://localhost:8080/api/position').then((data)=>{
         for(i in data){
             document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}<span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-clock_rate">${data[i].clock_rate}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-hourly_rate">${data[i].hourly_rate}</span>`
         }
     })
     selectedRowsId= []
@@ -128,30 +128,6 @@ resetBtn.addEventListener('click',()=>{
     renderUsers()
 })
 
-// document.getElementById('teapots-datalist').innerHTML= '<option value="витёк"></option>'
-
-function teapotPrompt(){
-    sendReq('GET', 'http://localhost:8080/api/teapot')
-    .then((data)=>{
-
-        for(i in data){
-            document.getElementById('teapots-datalist').innerHTML+= `<option value="${data[i].id}" label="${data[i].title}"></option>`
-            
-            }
-    })
-}
-function workshopPrompt(){
-    sendReq('GET', 'http://localhost:8080/api/workshop')
-    .then((data)=>{
-
-    
-        for(i in data){
-            document.getElementById('workshop-datalist').innerHTML+= `<option value="${data[i].id}" label="${data[i].title}"></option>`
-            }
-    })
-}
-teapotPrompt()
-workshopPrompt()
 
 addBtn.addEventListener('click', ()=>{
     document.querySelector('.addModal').style.display = 'block'
@@ -176,6 +152,8 @@ editBtn.addEventListener('click', ()=>{
     }
     document.querySelector('.updateModal').style.display = 'block'
     document.getElementById('UPDATE-title').value=  document.querySelector('.selected').childNodes[1].textContent
+    document.getElementById('UPDATE-clock').value=  document.querySelector('.selected').childNodes[2].textContent
+    document.getElementById('UPDATE-hourly').value=  document.querySelector('.selected').childNodes[3].textContent
 
 })
 
@@ -184,47 +162,49 @@ updateForm.addEventListener('submit', (event)=>{
 
     const id = document.querySelector('.selected').childNodes[0].textContent
     const title = document.getElementById('UPDATE-title').value
-    const teapot = document.getElementById('UPDATE-teapot').value
-    const workshop = document.getElementById('UPDATE-workshop').value
-    if(title== '' || teapot == '' || workshop == ''){
+    const clock = document.getElementById('UPDATE-clock').value
+    const hourly = document.getElementById('UPDATE-hourly').value
+    if(title== '' || clock == '' || hourly == ''){
         alert("Вы вввели не все данные для добавление")
         return false
     }else{
         document.getElementById('UPDATE-title').value = ''
-        document.getElementById('UPDATE-teapot').value = ''
-        document.getElementById('UPDATE-workshop').value = ''
+        document.getElementById('UPDATE-clock').value = ''
+        document.getElementById('UPDATE-hourly').value = ''
     }
     const body={
         'id': id,
-        'title': title,
-        'teapot': teapot,
-        'workshop': workshop
+        'position_name': title,
+        'clock_rate': clock,
+        'hourly_rate': hourly
     }
-    sendReq('PUT', 'http://localhost:8080/api/detail/update' , body)
+    sendReq('PUT', 'http://localhost:8080/api/position/update' , body)
+
     document.querySelector('.teapots').innerHTML = ''
     renderUsers()
+
 })
 
 addUserForm.addEventListener('submit', (event)=>{
     event.preventDefault()
    
     const title = document.getElementById('POST-title').value
-    const teapot = document.getElementById('POST-teapot').value
-    const workshop = document.getElementById('POST-workshop').value
-    if(title== '' || teapot == '' || workshop == ''){
+    const clock = document.getElementById('POST-clock').value
+    const hourly = document.getElementById('POST-hourly').value
+    if(title== '' || clock == '' || hourly == ''){
         alert("Вы вввели не все данные для добавление")
         return false
     }else{
         document.getElementById('POST-title').value = ''
-        document.getElementById('POST-teapot').value = ''
-        document.getElementById('POST-workshop').value = ''
+        document.getElementById('POST-hourly').value = ''
+        document.getElementById('POST-clock').value = ''
     }
     const body={
-        'title': title,
-        'teapot': teapot,
-        'workshop': workshop
+        'position_name': title,
+        'clock_rate': clock,
+        'hourly_rate': hourly
     }
-    sendReq('POST', 'http://localhost:8080/api/detail' , body).then(()=>{
+    sendReq('POST', 'http://localhost:8080/api/position' , body).then(()=>{
         document.querySelector('.teapots').innerHTML = ''
         renderUsers()
     })
@@ -236,7 +216,7 @@ addUserForm.addEventListener('submit', (event)=>{
 
 deliteBtn.addEventListener('click',()=>{
     selectedRowsId.forEach((item)=>{
-        fetch(`http://localhost:8080/api/detail/${item}`, {method: 'DELETE'}).then(()=>{
+        fetch(`http://localhost:8080/api/position/${item}`, {method: 'DELETE'}).then(()=>{
           
         })
     })
@@ -266,17 +246,17 @@ sortBtns.forEach((item)=>{
             }
                 break;
             case 'Название':{
-                by='title'
+                by='position_name'
              
             }
                 break;
-            case 'Чайник':{
-                by='teapot'
+            case 'Длительность смены':{
+                by='clock_rate'
                 
             }
                 break;
-            case 'Цех':{
-                by='workshop'
+            case 'Часовая ставка':{
+                by='hourly_rate'
                 
             }
                 break;    
@@ -285,16 +265,16 @@ sortBtns.forEach((item)=>{
             default:
                 break;
         }
-        sendReq('GET', `http://localhost:8080/api/detail/sort/${by}/${order}`).then((data)=>{
+        sendReq('GET', `http://localhost:8080/api/position/sort/${by}/${order}`).then((data)=>{
 
      
             for(i in data){
               
                 document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
                 document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
+                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}<span>`
+                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-clock_rate">${data[i].clock_rate}</span>`
+                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-hourly_rate">${data[i].hourly_rate}</span>`
                 }
     
         })
@@ -318,17 +298,17 @@ searchBtns.forEach((item)=>{
            }
                break;
            case 'Название':{
-               by='col-title'
+               by='col-position_name'
             
            }
                break;
-           case 'Чайник':{
-               by='col-teapot'
+            case 'Длительность смены':{
+               by='col-clock_rate'
                
            }
                break;
-           case 'Цех':{
-               by='col-workshop'
+            case 'Часовая ставка':{
+               by='col-hourly_rate'
                
            }
                break;
@@ -366,49 +346,49 @@ filtBtns.forEach((item)=>{
         let by 
         switch (item.parentNode.textContent) {
             case 'Id':{
-                by='detail.id'
+                by='id'
            }
                break;
            case 'Название':{
-               by='detail.title'
+               by='position_name'
             
            }
                break;
-           case 'Чайник':{
-               by='teapot.title'
+           case 'Длительность смены':{
+               by='clock_rate'
                
            }
                break;
-           case 'Цех':{
-               by='workshop.title'
+           case 'Часовая ставка':{
+               by='hourly_rate'
                
            }
-               break;
+               break;    
         
             default:
                 break;
         }
         if(searchCheck.checked){
             document.querySelector('.teapots').innerHTML = ''
-            sendReq('GET', `http://localhost:8080/api/detail/select/${by}/${searchProps.value}`).then((data)=>{
+            sendReq('GET', `http://localhost:8080/api/position/select/${by}/${searchProps.value}`).then((data)=>{
                 for(i in data){
                     document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
-                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}<span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-clock_rate">${data[i].clock_rate}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-hourly_rate">${data[i].hourly_rate}</span>`
                     }
             })
         }else{
             document.querySelector('.teapots').innerHTML = ''
-            sendReq('GET', `http://localhost:8080/api/detail/search/${by}/${searchProps.value}`).then((data)=>{
+            sendReq('GET', `http://localhost:8080/api/position/search/${by}/${searchProps.value}`).then((data)=>{
                 console.log(data)
                 for(i in data){
                     document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-teapot">${data[i].teapot}</span>`
-            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-workshop">${data[i].workshop}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-position_name">${data[i].position_name}<span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-clock_rate">${data[i].clock_rate}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-hourly_rate">${data[i].hourly_rate}</span>`
                     }
             })
         }
