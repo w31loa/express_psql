@@ -29,4 +29,9 @@ router.put('/teapot/update', (req,res)=>{
     teapotController.updateTeapot(req,res)
 })
 
+
+router.get('/report/:from/:to', (req,res)=>{
+    teapotController.report(req,res)
+})
+
 export default router   

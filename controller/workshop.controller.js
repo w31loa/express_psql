@@ -19,14 +19,27 @@ export default class WorkshopController{
     async sortWorkshopsById(req,res){
         const by = req.params.by
         const order = req.params.order
-        const users = await db.query(`select * from workshop order by ${by} ${order}`)
-        res.json(users.rows)
+        await db.query(`select * from workshop order by ${by} ${order}`, (err,resp)=>{
+            if(err){
+                console.log(err.message)
+            }else{
+                res.json(resp.rows)
+
+            }
+        })
+        
      }
     async selectWorkshop(req,res){
         const by = req.params.by
         const value = req.params.value
-        const users = await db.query(`select * from workshop where ${by}=${value} `)
-        res.json(users.rows)
+        await db.query(`select * from workshop where ${by}=${value} `, (err,resp)=>{
+            if(err){
+                console.log(err.message)
+            }else{
+                res.json(resp.rows)
+            }
+        })
+   
      }
     async searchWorkshop(req,res){
         const by = req.params.by

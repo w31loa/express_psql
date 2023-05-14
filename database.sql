@@ -2,7 +2,8 @@
 create TABLE position(
     id SERIAL PRIMARY KEY,
     position_name VARCHAR(255),
-    clock_rate INTEGER
+    clock_rate INTEGER,
+    hourly_rate INTEGER
 );
 
 
@@ -19,8 +20,8 @@ create TABLE worker(
     patronymic VARCHAR(255),
     position_id INTEGER,
     workshop_id INTEGER,
-    FOREIGN KEY (position_id) REFERENCES position(id),
-    FOREIGN KEY (workshop_id) REFERENCES workshop(id)
+    FOREIGN KEY (position_id) REFERENCES position(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (workshop_id) REFERENCES workshop(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create TABLE teapot(
@@ -28,7 +29,8 @@ create TABLE teapot(
     title VARCHAR(255),
     volume INTEGER,
     power INTEGER,
-    material VARCHAR(255)
+    material VARCHAR(255),
+    date DATE
 );
 
 create TABLE detail(
@@ -36,16 +38,9 @@ create TABLE detail(
     title VARCHAR(255),
     teapot_id INTEGER,
     workshop_id INTEGER,
-    FOREIGN KEY (teapot_id) REFERENCES teapot(id),
-    FOREIGN KEY (workshop_id) REFERENCES workshop(id)
+    FOREIGN KEY (teapot_id) REFERENCES teapot(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (workshop_id) REFERENCES workshop(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
-
-INSERT INTO teapot (
-	title,
-	volume,
-	power,
-	material
-)
-VALUES('витёк', 2000,2000,'титан');
+	

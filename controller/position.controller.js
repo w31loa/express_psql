@@ -19,14 +19,27 @@ export default class PositionController{
     async sortPosition(req,res){
         const by = req.params.by
         const order = req.params.order
-        const users = await db.query(`select * from position order by ${by} ${order}`)
-        res.json(users.rows)
+        await db.query(`select * from position order by ${by} ${order}`, (err,resp)=>{
+            if(err){
+                console.log(err.message)
+            }else{
+                res.json(resp.rows)
+
+            }
+        })
+        
      }
     async selectPosition(req,res){
         const by = req.params.by
         const value = req.params.value
-        const users = await db.query(`select * from position where ${by}='${value}' `)
-        res.json(users.rows)
+        await db.query(`select * from position where ${by}='${value}' `, (err,resp)=>{
+            if(err){
+                console.log(err.message)
+            }else{
+                res.json(resp.rows)
+
+            }
+        })
      }
     async searchPosition(req,res){
         const by = req.params.by

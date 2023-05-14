@@ -20,14 +20,35 @@ export default class DetailController{
         const by = req.params.by
         const order = req.params.order
         if(by == 'title'|| by== 'id'){
-            const users = await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id order by detail.${by} ${order}`)
-            res.json(users.rows)
+            await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id order by detail.${by} ${order}`, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+
+                }
+            })
+            
         }else if(by=='workshop'){
-            const users = await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id order by workshop.title ${order}`)
-            res.json(users.rows)
+             await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id order by workshop.title ${order}`, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+
+                }
+             })
+            
         }else if(by=='teapot'){
-            const users = await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id order by teapot.title ${order}`)
-            res.json(users.rows)
+            await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id order by teapot.title ${order}`,(err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+
+                }
+            })
+            
         }
       
      }
@@ -36,11 +57,21 @@ export default class DetailController{
         const value = req.params.value
         // const users = await db.query(`select * from detail where ${by}=${value} `)
         if(by != 'detail.id'){
-            const users = await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id and ${by}='${value}' `)
-            res.json(users.rows)
+            await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id and ${by}='${value}' `, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }elseP
+                res.json(resp.rows)
+            })
+           
         }else{
-            const users = await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id and ${by}=${value} `)
-            res.json(users.rows)
+            await db.query(`select detail.id, detail.title , teapot.title as teapot, workshop.title as workshop from detail, teapot, workshop WHERE detail.teapot_id = teapot.id AND detail.workshop_id = workshop.id and ${by}=${value} `, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+                }
+            })
         }
      
      }

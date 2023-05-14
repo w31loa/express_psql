@@ -108,24 +108,36 @@ selectRows()
 
 
 
+
 function renderUsers(){
     sendReq('GET', 'api/teapot')
     .then((data)=>{
 
      
         for(i in data){
+            const date = new Date(data[i].date)
+            let mounth
+            if(date.getUTCMonth()+1<10){
+                 mounth = `0${date.getUTCMonth()+1}`
+            }else{
+                 mounth =date.getUTCMonth()+1
+            }
             document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-volume">${data[i].volume}</span>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-power">${data[i].power}</span>`
             document.querySelector(`.row${i}`).innerHTML += `<span class="value col-material">${data[i].material}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-date">${date.getFullYear()}-${mounth}-${date.getDate()}</span>`
             }
             selectedRowsId= []
+            
     })
+    
 }
  
 renderUsers()
+
 
 resetBtn.addEventListener('click',()=>{
     document.querySelector('.teapots').innerHTML = ''
@@ -135,6 +147,7 @@ resetBtn.addEventListener('click',()=>{
 
 addBtn.addEventListener('click', ()=>{
     document.querySelector('.addModal').style.display = 'block'
+    CallPrint()
 })
 
 closeBtns.forEach((item)=>{
@@ -202,7 +215,9 @@ addUserForm.addEventListener('submit', (event)=>{
     const volume = document.getElementById('POST-volume').value
     const power = document.getElementById('POST-power').value
     const material = document.getElementById('POST-material').value
-    if(title== '' || volume == '' || power== '' || material == ''){
+    const date = document.getElementById('POST-date').value
+    console.log(date)
+    if(title== '' || volume == '' || power== '' || material == ''|| date ==''){
         alert("Вы вввели не все данные для добавление")
         return false
     }else{
@@ -210,12 +225,14 @@ addUserForm.addEventListener('submit', (event)=>{
         document.getElementById('POST-volume').value = ''
         document.getElementById('POST-power').value = ''
         document.getElementById('POST-material').value = ''
+        document.getElementById('POST-date').value = ''
     }
     const body={
         'title': title,
         'volume': volume,
         'power': power,
-        'material': material
+        'material': material,
+        'date': date
     }
     sendReq('POST', 'api/teapot' , body).then(()=>{
         document.querySelector('.teapots').innerHTML = ''
@@ -279,6 +296,11 @@ sortBtns.forEach((item)=>{
                 
             }
                 break;
+            case 'Дата производства':{
+                by='date'
+                
+            }
+                break;
 
         
             default:
@@ -289,13 +311,21 @@ sortBtns.forEach((item)=>{
      
             for(i in data){
               
-                document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-volume">${data[i].volume}</span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-power">${data[i].power}</span>`
-                document.querySelector(`.row${i}`).innerHTML += `<span class="value col-material">${data[i].material}</span>`
-                }
+                const date = new Date(data[i].date)
+            let mounth
+            if(date.getUTCMonth()+1<10){
+                 mounth = `0${date.getUTCMonth()+1}`
+            }else{
+                 mounth =date.getUTCMonth()+1
+            }
+            document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-volume">${data[i].volume}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-power">${data[i].power}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-material">${data[i].material}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-date">${date.getFullYear()}-${mounth}-${date.getDate()}</span>`
+            }
     
         })
           
@@ -334,6 +364,11 @@ searchBtns.forEach((item)=>{
                 break;
             case 'Материал':{
                 by='col-material'
+                
+            }
+                break;
+            case 'Дата производства':{
+                by='col-date'
                 
             }
                 break;
@@ -397,6 +432,11 @@ filtBtns.forEach((item)=>{
                 
             }
                 break;
+            case 'Дата производства':{
+                by='date'
+                
+            }
+                break;
 
         
             default:
@@ -407,12 +447,20 @@ filtBtns.forEach((item)=>{
             document.querySelector('.teapots').innerHTML = ''
             sendReq('GET', `api/teapot/select/${by}/${searchProps.value}`).then((data)=>{
                 for(i in data){
+                    const date = new Date(data[i].date)
+                    let mounth
+                    if(date.getUTCMonth()+1<10){
+                         mounth = `0${date.getUTCMonth()+1}`
+                    }else{
+                         mounth =date.getUTCMonth()+1
+                    }
                     document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-volume">${data[i].volume}</span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-power">${data[i].power}</span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-material">${data[i].material}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-date">${date.getFullYear()}-${mounth}-${date.getDate()}</span>`
                     }
             })
         }else{
@@ -420,16 +468,64 @@ filtBtns.forEach((item)=>{
             sendReq('GET', `api/teapot/search/${by}/${searchProps.value}`).then((data)=>{
                 console.log(data)
                 for(i in data){
+                    const date = new Date(data[i].date)
+                    let mounth
+                    if(date.getUTCMonth()+1<10){
+                         mounth = `0${date.getUTCMonth()+1}`
+                    }else{
+                         mounth =date.getUTCMonth()+1
+                    }
                     document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-volume">${data[i].volume}</span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-power">${data[i].power}</span>`
                     document.querySelector(`.row${i}`).innerHTML += `<span class="value col-material">${data[i].material}</span>`
+                    document.querySelector(`.row${i}`).innerHTML += `<span class="value col-date">${date.getFullYear()}-${mounth}-${date.getDate()}</span>`
                     }
             })
         }
 
       
     })
+})
+
+document.querySelector('.reportBtn').addEventListener('click', ()=>{
+    document.querySelector('.reportModal').style.display='flex'
+})
+
+document.addEventListener('click', (event)=>{
+    if(event.target != document.querySelector('.reportBtn')&&event.target != document.querySelector('.reportModal')&&event.target != document.querySelector('.showBtn')&&event.target != document.querySelector('.printBtn')&&event.target != document.querySelector('.reportFrom')&&event.target != document.querySelector('.reportTo') ){
+        document.querySelector('.reportModal').style.display = 'none'
+    }
+})
+
+document.querySelector('.showBtn').addEventListener('click', ()=>{
+    console.log(123)
+    const from = document.querySelector('.reportFrom')
+    const to = document.querySelector('.reportTo')
+    document.querySelector('.print-title').innerHTML = `Отчет по производству с ${from.value} по ${to.value}`
+    sendReq('GET', `api/report/${from.value}/${to.value}`).then((data)=>{
+        document.querySelector('.teapots').innerHTML = ''
+        for(i in data){
+            const date = new Date(data[i].date)
+            let mounth
+            if(date.getUTCMonth()+1<10){
+                 mounth = `0${date.getUTCMonth()+1}`
+            }else{
+                 mounth =date.getUTCMonth()+1
+            }
+            document.querySelector('.teapots').innerHTML += `<p class= "row row${i} unselected"></p>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-id" id="${data[i].id}">${data[i].id}<span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-title">${data[i].title}<span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-volume">${data[i].volume}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-power">${data[i].power}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-material">${data[i].material}</span>`
+            document.querySelector(`.row${i}`).innerHTML += `<span class="value col-date">${date.getFullYear()}-${mounth}-${date.getDate()}</span>`
+            }
+    })
+})
+
+document.querySelector('.printBtn').addEventListener('click', ()=>{
+    window.print()
 })

@@ -5,6 +5,9 @@ import workshopRouter from './routes/workshop.router.js'
 import detailRouter from './routes/detail.router.js'
 import positionRouter from './routes/position.router.js'
 import workerRouter from './routes/worker.router.js'
+import pdf from 'pdf-creator-node'
+import fs from 'fs'
+
 
 const PORT = process.env.PORT || 8080
 
@@ -26,3 +29,6 @@ app.get('/' ,(req,res)=>{
 app.listen(PORT, ()=>{
     console.log(`server working on ${PORT}...`)
 })
+
+
+

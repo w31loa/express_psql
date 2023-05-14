@@ -79,6 +79,7 @@ ul li{
     text-align: center;
 }
 a{
+    cursor: pointer;
     font-size: 40px;
     text-decoration: none;
     color: white;
@@ -212,4 +213,94 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .colBtns img:hover{
     background-color: rgba(192, 184, 184, 0.419);
+}
+
+.print-title{
+    display: none;
+}
+
+.reportModal{
+    display: none;
+}
+.reportBtn{
+    font-size: 30px;
+    position: absolute;
+    width: 200px;
+    height: 65px;
+    right: 0;
+    border: 0;
+    background-color: rgba(95, 158, 160, 0.439);
+    border-radius: 10px;
+}
+.reportBtn:hover{
+    background-color:rgba(107, 189, 192, 0.844);
+}
+.reportModal{
+    position: absolute;
+    right: 0;
+    justify-content: center;
+    padding-top: 50px;
+    width: 400px;
+    height: 120px;
+    border-radius: 0 0 0 10px;
+    top: 140px;
+    background-color: rgb(95, 158, 160);
+}
+
+.reportModal input{
+    margin: 10px;
+    height: 30px;
+    border: 0;
+    border-radius: 10px;
+}
+
+.showBtn{
+    border-radius: 0 0 0 10px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    border: 0;
+    width: 50%;
+    border-right: 1px solid black;
+}
+.printBtn{
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    border: 0;
+    width: 50%;
+}
+
+@media print{
+	.buttons , .table_title{
+		display: none;
+	} 
+    .col img{
+        display: none;
+    }
+    .col{
+        font-size: 14px;
+        border: 1 px solid black;
+    }
+    
+    .value{
+        font-size: 14px;
+    }
+    .header{
+        margin: 0;
+        padding: 0;
+        
+    }
+    .print-title{
+        text-align: center;
+        display: block;
+    }
+    * {
+		-webkit-print-color-adjust: exact !important;   
+		color-adjust: exact !important;              
+	}
 }

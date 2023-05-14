@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <p class="print-title">Очет по производству за всё время.</p>
     <div class="buttons">
         <input class="userMenuBtn" id="addMenuBtn" type="button" value="Добавить запись">
         <div class="addModal">
@@ -25,6 +26,8 @@
                     <input class="addInput" id="POST-power" type="number" > <br>
                     <label for="POST-material">Материал:</label>
                     <input class="addInput" id="POST-material" type="text"> <br>
+                    <label for="POST-date">Дата производства:</label>
+                    <input class="addInput" id="POST-date" type="date"> <br>
                     <input class="addBtn" type="submit" value="Добавить">
                 </form>
             </div>
@@ -42,6 +45,8 @@
                     <input class="addInput" id="UPDATE-power" type="number" > <br>
                     <label for="POST-material">Материал:</label>
                     <input class="addInput" id="UPDATE-material" type="text"> <br>
+                    <label for="POST-date">Дата производства:</label>
+                    <input class="addInput" id="UPDATE-date" type="date"> <br>
                     <input class="addBtn" type="submit" value="Изменить">
                 </form>
             </div>
@@ -60,6 +65,15 @@
     </div>
     <div class="table_title">
         <button class="titleBtn">Чайник</button> 
+        <button class="reportBtn">Отчет</button> 
+        <div class="reportModal">
+            <label for="">С</label>
+            <input class="reportFrom"  type="date"> 
+            <label for="">По</label>
+            <input class="reportTo"" type="date"> <br>
+            <button class="showBtn">Показать</button> 
+            <button class="printBtn">Печать</button> 
+        </div>
         <ul class="tables-selector">
             <li><a href="./views/workshop.html">Цех</a></li>
             <li><a href="./views/detail.html">Деталь</a></li>
@@ -76,6 +90,7 @@
             <span class="col" id="id-col">Объём<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
             <span class="col" id="id-col">Мощность<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
             <span class="col" id="id-col">Материал<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Дата производства<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
 
         </p>
         <div class="teapots">

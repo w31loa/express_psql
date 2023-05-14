@@ -20,14 +20,35 @@ export default class WorkerController{
         const by = req.params.by
         const order = req.params.order
         if(by == 'firstname'|| by== 'id'|| by == 'surname' || by == 'patronymic'){
-            const users = await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id order by worker.${by} ${order}`)
-            res.json(users.rows)
+            await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id order by worker.${by} ${order}`, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+
+                }
+            })
+            
         }else if(by=='position_name'){
-            const users = await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id order by position.position_name ${order}`)
-            res.json(users.rows)
+            await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id order by position.position_name ${order}`, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+
+                }
+            })
+            
         }else if(by=='workshop'){
-            const users = await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id order by workshop.title ${order}`)
-            res.json(users.rows)
+            await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id order by workshop.title ${order}`, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+
+                }
+            })
+            
         }
       
      }
@@ -36,11 +57,23 @@ export default class WorkerController{
         const value = req.params.value
         // const users = await db.query(`select * from detail where ${by}=${value} `)
         if(by != 'worker.id'){
-            const users = await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id and ${by}='${value}' `)
-            res.json(users.rows)
+            db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id and ${by}='${value}' `, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                   res.json(resp.rows)
+                    
+                }
+            })
         }else{
-            const users = await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id and ${by}=${value} `)
-            res.json(users.rows)
+            await db.query(`select worker.id, worker.surname, worker.firstname , worker.patronymic, position.position_name, workshop.title as workshop from worker, position, workshop WHERE worker.position_id = position.id AND worker.workshop_id = workshop.id and ${by}=${value} `, (err,resp)=>{
+                if(err){
+                    console.log(err.message)
+                }else{
+                    res.json(resp.rows)
+
+                }
+            })
         }
         
      
