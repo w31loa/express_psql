@@ -1,0 +1,107 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Чайник</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <p class="print-title">Очет по производству за всё время.</p>
+    <div class="buttons">
+        <input class="userMenuBtn" id="addMenuBtn" type="button" value="Добавить запись">
+        <div class="addModal">
+            <img class="x-icon" src="./img/x-icon.svg" alt="">
+            <div class="addForm">
+                <form id="addUserForm"  >
+                    
+                    <label for="POST-title">Название:</label>
+                    <input class="addInput" id="POST-title" type="text"> <br>
+                    <label for="POST-volume">Объём:</label>
+                    <input class="addInput" id="POST-volume" type="number" > <br>
+                    <label for="POST-power">Мощность:</label>
+                    <input class="addInput" id="POST-power" type="number" > <br>
+                    <label for="POST-material">Материал:</label>
+                    <input class="addInput" id="POST-material" type="text"> <br>
+                    <label for="POST-date">Дата производства:</label>
+                    <input class="addInput" id="POST-date" type="date"> <br>
+                    <input class="addBtn" type="submit" value="Добавить">
+                </form>
+            </div>
+        </div>
+        <div class="updateModal addModal">
+            <img class="x-icon" src="./img/x-icon.svg" alt="">
+            <div class="addForm">
+                <form id="updateForm"  >
+                    
+                    <label for="POST-title">Название:</label>
+                    <input class="addInput" id="UPDATE-title" type="text"> <br>
+                    <label for="POST-volume">Объём:</label>
+                    <input class="addInput" id="UPDATE-volume" type="number" > <br>
+                    <label for="POST-power">Мощность:</label>
+                    <input class="addInput" id="UPDATE-power" type="number" > <br>
+                    <label for="POST-material">Материал:</label>
+                    <input class="addInput" id="UPDATE-material" type="text"> <br>
+                    <label for="POST-date">Дата производства:</label>
+                    <input class="addInput" id="UPDATE-date" type="date"> <br>
+                    <input class="addBtn" type="submit" value="Изменить">
+                </form>
+            </div>
+        </div>
+
+
+        </form>
+        <input class="userMenuBtn" id="edit" type="button" value="Изменить запись">
+        <input class="userMenuBtn" id="delete" type="button" value="Удалить запись">
+        <input class="userMenuBtn" id="reset" type="button" value="Обновить">
+        <label for="propsInput">Праметры поиска/фильтрации</label>
+        <input class="searchInput" type="text" name="" id="propsInput">
+        <label for="propsCheck">Точный поиск/фильтрация</label>
+        <input type="checkbox" name="" id="propsCheck">
+        <input class="userMenuBtn exitBtn" id="exit" type="button" value="Выход">
+    </div>
+    <div class="table_title">
+        <button class="titleBtn">Чайник</button> 
+        <button class="reportBtn">Отчет</button> 
+        <div class="reportModal">
+            <label for="">С</label>
+            <input class="reportFrom"  type="date"> 
+            <label for="">По</label>
+            <input class="reportTo"" type="date"> <br>
+            <button class="showBtn">Показать</button> 
+            <button class="printBtn">Печать</button> 
+        </div>
+        <ul class="tables-selector">
+            <li><a href="./views/workshop.html">Цех</a></li>
+            <li><a href="./views/detail.html">Деталь</a></li>
+            <li><a href="./views/position.html">Должность</a></li>
+            <li><a href="./views/worker.html">Работник</a></li>
+       
+        </ul>
+    </div>
+    <div class="content">
+        <p class= "row header">
+           
+            <span class="col" id="id-col">Id<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Название<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Объём<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Мощность<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Материал<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
+            <span class="col" id="id-col">Дата производства<br><span class="colBtns searchBtn" ><img id="searchBtn" src="./img/search.png" alt=""></span><span class="colBtns filtBtn" ><img id="filtBtn" src="./img/filt.png"  alt=""></span><span class="colBtns sortBtn" ><img id="sort-more" src="./img/more-less.png" alt=""></span><span class="colBtns sortBtn" ><img id="sort-less" src="./img/less-more.png"  alt=""></span></span>
+
+        </p>
+        <div class="teapots">
+          
+        </div>
+    </div>
+
+    <script src="./js/teapot.js"></script>
+    <script src="./js/auth.js"></script>
+</body>
+</html>

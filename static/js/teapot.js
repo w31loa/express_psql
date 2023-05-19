@@ -17,6 +17,10 @@ const titleBtn = document.querySelector('.titleBtn')
 
 let selectedRowsId = []
 
+document.getElementById('exit').addEventListener('click', ()=>{
+    location.replace('/')
+})
+
 
 titleBtn.addEventListener('click', ()=>{
     if(  document.querySelector('.tables-selector').style.display = 'none'){

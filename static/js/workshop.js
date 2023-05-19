@@ -17,6 +17,21 @@ const titleBtn = document.querySelector('.titleBtn')
 
 let selectedRowsId = []
 
+document.getElementById('exit').addEventListener('click', ()=>{
+    location.replace('/')
+})
+
+if(localStorage.getItem('login') == 'manager'){
+    document.getElementById('edit').disabled = 'true'
+    document.getElementById('delete').disabled = 'true'
+}
+if(localStorage.getItem('login') == 'user'){
+    document.getElementById('edit').disabled = 'true'
+    document.getElementById('delete').disabled = 'true'
+    document.getElementById('addMenuBtn').disabled = 'true'
+}
+
+
 titleBtn.addEventListener('click', ()=>{
     if(  document.querySelector('.tables-selector').style.display = 'none'){
        

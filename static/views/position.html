@@ -35,9 +35,9 @@
                     <label for="POST-title">Название:</label>
                     <input class="addInput" id="UPDATE-title" type="text" autocomplete="off"> <br>
                     <label for="POST-volume">Длительность смены:</label>
-                    <input class="addInput" id="UPDATE-clock" type="number" > <br>
+                    <input class="addInput" id="UPDATE-clock" type="number"  autocomplete="off"> <br>
                     <label for="POST-power">Часовая ставка:</label>
-                    <input class="addInput" id="UPDATE-hourly" type="number" > <br>
+                    <input class="addInput" id="UPDATE-hourly" type="number"  autocomplete="off"> <br>
                     <input class="addBtn" type="submit" value="Изменить">
                 </form>
             </div>
@@ -49,15 +49,17 @@
         <input class="userMenuBtn" id="delete" type="button" value="Удалить запись">
         <input class="userMenuBtn" id="reset" type="button" value="Обновить">
         <label for="propsInput">Праметры поиска/фильтрации</label>
-        <input class="searchInput" type="text" name="" id="propsInput">
+        <input class="searchInput" type="text" name="" id="propsInput"  autocomplete="off">
         <label for="propsCheck">Точный поиск/фильтрация</label>
-        <input type="checkbox" name="" id="propsCheck">
+        <input type="checkbox" name="" id="propsCheck"  autocomplete="off">
+        <input class="userMenuBtn exitBtn" id="exit" type="button" value="Выход">
+
       
     </div>
     <div class="table_title">
         <button class="titleBtn">Должность</button> 
         <ul class="tables-selector">
-            <li><a href="../index.html">Чайник</a></li>
+            <li><a href="../teapot.html">Чайник</a></li>
             <li><a href="./workshop.html">Цех</a></li>
             <li><a href="./detail.html">Деталь</a></li>
             <li><a href="./worker.html">Работник</a></li>
@@ -79,5 +81,6 @@
     </div>
 
     <script src="../js/position.js"></script>
+
 </body>
 </html>

@@ -20,11 +20,11 @@
                     <label for="POST-title">Название:</label>
                     <input class="addInput" id="POST-title" type="text" autocomplete="off"> <br>
                     <label for="POST-teapot">Чайник:</label>
-                    <input list="teapots-datalist" class="addInput" id="POST-teapot"> <br>     
+                    <input list="teapots-datalist" class="addInput" id="POST-teapot"  autocomplete="off"> <br>     
                     <datalist id="teapots-datalist">
                     </datalist>
                     <label for="POST-workshop">Цех:</label>
-                    <input list="workshop-datalist" class="addInput" id="POST-workshop" > <br>
+                    <input list="workshop-datalist" class="addInput" id="POST-workshop"  autocomplete="off"> <br>
                     <datalist id="workshop-datalist">
                     </datalist>
                     <input class="addBtn" type="submit" value="Добавить">
@@ -38,11 +38,11 @@
                     <label for="POST-title">Название:</label>
                     <input class="addInput" id="UPDATE-title" type="text"> <br>
                     <label for="POST-teapot">Чайник:</label>
-                    <input list="teapots-datalist" class="addInput" id="UPDATE-teapot" type="number" > <br>
+                    <input list="teapots-datalist" class="addInput" id="UPDATE-teapot" type="number"  autocomplete="off" > <br>
                     <datalist id="teapots-datalist">
                     </datalist>
                     <label for="POST-workshop">Цех:</label>
-                    <input list="workshop-datalist" class="addInput" id="UPDATE-workshop" type="number" > <br>
+                    <input list="workshop-datalist" class="addInput" id="UPDATE-workshop" type="number" autocomplete="off"> <br>
                     <datalist id="workshop-datalist">
                     </datalist>
                     <input class="addBtn" type="submit" value="Изменить">
@@ -59,11 +59,13 @@
         <input class="searchInput" type="text" name="" id="propsInput">
         <label for="propsCheck">Точный поиск/фильтрация</label>
         <input type="checkbox" name="" id="propsCheck">
+        <input class="userMenuBtn exitBtn" id="exit" type="button" value="Выход">
+
     </div>
     <div class="table_title">
         <button class="titleBtn">Деталь</button> 
         <ul class="tables-selector">
-            <li><a href="../index.html">Чайник</a></li>
+            <li><a href="../teapot.html">Чайник</a></li>
             <li><a href="./workshop.html">Цех</a></li>
             <li><a href="./position.html">Должность</a></li>
             <li><a href="./workshop.html">Работник</a></li>
@@ -85,5 +87,6 @@
     </div>
 
     <script src="../js/detail.js"></script>
+
 </body>
 </html>

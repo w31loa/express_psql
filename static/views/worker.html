@@ -24,10 +24,10 @@
                     <label for="POST-title">Отчество:</label>
                     <input class="addInput" id="POST-patronymic" type="text"> <br>
                     <label for="POST-workshop">Должность:</label>
-                    <input list="position-datalist" class="addInput" id="POST-position" type="number"> <br>
+                    <input list="position-datalist" class="addInput" id="POST-position" type="number"  autocomplete="off"> <br>
                     <datalist id="position-datalist"> </datalist>
                     <label for="POST-workshop">Цех:</label>
-                    <input list="workshop-datalist" class="addInput" id="POST-workshop" type="number"> <br>
+                    <input list="workshop-datalist" class="addInput" id="POST-workshop" type="number"  autocomplete="off"> <br>
                     <datalist id="workshop-datalist"> </datalist>
                     <input class="addBtn" type="submit" value="Добавить">
                 </form>
@@ -38,16 +38,16 @@
             <div class="addForm">
                 <form id="updateForm"  >
                     <label for="POST-title">Фамилия:</label>
-                    <input class="addInput" id="UPDATE-surname" type="text"> <br>
+                    <input class="addInput" id="UPDATE-surname" type="text"  autocomplete="off"> <br>
                     <label for="POST-title">Имя:</label>
-                    <input class="addInput" id="UPDATE-firstname" type="text"> <br>
+                    <input class="addInput" id="UPDATE-firstname" type="text"  autocomplete="off"> <br>
                     <label for="POST-title">Отчество:</label>
-                    <input class="addInput" id="UPDATE-patronymic" type="text"> <br>
+                    <input class="addInput" id="UPDATE-patronymic" type="text"  autocomplete="off"> <br>
                     <label for="POST-workshop">Должность:</label>
-                    <input list="position-datalist" class="addInput" id="UPDATE-position" type="number"> <br>
+                    <input list="position-datalist" class="addInput" id="UPDATE-position" type="number"  autocomplete="off"> <br>
                     <datalist id="position-datalist"> </datalist>
                     <label for="POST-workshop">Цех:</label>
-                    <input list="workshop-datalist" class="addInput" id="UPDATE-workshop" type="number"> <br>
+                    <input list="workshop-datalist" class="addInput" id="UPDATE-workshop" type="number"  autocomplete="off"> <br>
                     <datalist id="workshop-datalist"> </datalist>
                     <input class="addBtn" type="submit" value="Изменить">
                 </form>
@@ -63,11 +63,13 @@
         <input class="searchInput" type="text" name="" id="propsInput">
         <label for="propsCheck">Точный поиск/фильтрация</label>
         <input type="checkbox" name="" id="propsCheck">
+        <input class="userMenuBtn exitBtn" id="exit" type="button" value="Выход">
+
     </div>
     <div class="table_title">
         <button class="titleBtn">Работник</button> 
         <ul class="tables-selector">
-            <li><a href="../index.html">Чайник</a></li>
+            <li><a href="../teapot.html">Чайник</a></li>
             <li><a href="./detail.html">Деталь</a></li>
             <li><a href="./position.html">Должность</a></li>
             <li><a href="./workshop.html">Цех</a></li>
@@ -91,5 +93,6 @@
     </div>
 
     <script src="../js/worker.js"></script>
+
 </body>
 </html>
