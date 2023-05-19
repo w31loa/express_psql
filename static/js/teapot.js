@@ -505,10 +505,9 @@ document.addEventListener('click', (event)=>{
 })
 
 document.querySelector('.showBtn').addEventListener('click', ()=>{
-    console.log(123)
     const from = document.querySelector('.reportFrom')
     const to = document.querySelector('.reportTo')
-    document.querySelector('.print-title').innerHTML = `Отчет по производству с ${from.value} по ${to.value}`
+    document.querySelector('.print-title').innerHTML = `Отчет по производству чайников в период с ${from.value} по ${to.value}`
     sendReq('GET', `api/report/${from.value}/${to.value}`).then((data)=>{
         document.querySelector('.teapots').innerHTML = ''
         for(i in data){

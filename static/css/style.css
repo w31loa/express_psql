@@ -278,7 +278,15 @@ input[type="number"]::-webkit-inner-spin-button {
    border-left: 2px solid black;
 }
 
+.printSign{
+    display: none;
+}
+
 @media print{
+
+    title {
+        display: none;
+    }
 	.buttons , .table_title{
 		display: none;
 	} 
@@ -306,4 +314,10 @@ input[type="number"]::-webkit-inner-spin-button {
 		-webkit-print-color-adjust: exact !important;   
 		color-adjust: exact !important;              
 	}
+    .printSign{
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        display: block;
+    }
 }
